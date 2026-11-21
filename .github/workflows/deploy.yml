@@ -5,6 +5,10 @@
 name: Deploy - Verificación en Vercel
 
 on:
+  push:
+    branches: [main]          # cada release a producción
+  repository_dispatch:
+    types: [vercel.deployment.success]   # evento que envía la integración de Vercel
   deployment_status:
   workflow_dispatch:
 
@@ -14,13 +18,17 @@ permissions:
 jobs:
   smoke:
     name: 5 · Deploy - Smoke tests en producción
-    if: github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production')
+    if: >-
+      github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'repository_dispatch' && github.event.client_payload.environment == 'production') ||
+      (github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production')
     runs-on: ubuntu-latest
     env:
       URL: ${{ vars.PRODUCTION_URL || 'https://laparada-coral.vercel.app' }}
     steps:
-      - name: Esperar a que el alias de producción responda
+      - name: Esperar a que Vercel publique la versión y el alias responda
         run: |
+          [ "${{ github.event_name }}" = "push" ] && sleep 90
           for i in $(seq 1 12); do
             code=$(curl -s -o /dev/null -w '%{http_code}' "$URL/") && [ "$code" = "200" ] && break
             echo "Intento $i: HTTP $code"; sleep 10
