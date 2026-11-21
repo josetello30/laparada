@@ -14,7 +14,7 @@ Plataforma web para **formalizar el mercado mayorista La Parada** (La Victoria, 
 | Base de datos, autenticación y autorización | Supabase (PostgreSQL 17 · Auth · Row Level Security) |
 | Pruebas | Vitest (unitarias + integración contra Supabase) |
 | CI/CD y seguridad | GitHub Actions · ESLint · Semgrep (SAST) · pnpm audit (SCA) · Gitleaks · Dependabot |
-| Despliegue | Vercel (HTTPS, CDN Edge, previews por rama) |
+| Despliegue | Vercel (HTTPS, CDN Edge, previews por rama) · https://laparada-coral.vercel.app |
 
 ## Estructura
 
