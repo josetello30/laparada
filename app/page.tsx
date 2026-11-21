@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ShieldCheck, Store, Truck, HardHat, Stethoscope, ArrowRight } from 'lucide-react'
 import { crearClienteServidor, supabaseConfigurado } from '@/lib/supabase/server'
@@ -24,7 +25,7 @@ export default async function Inicio() {
       <header className="border-b border-stone-200 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2 font-semibold">
-            <span className="grid size-8 place-items-center rounded-lg bg-emerald-700 text-white">LP</span>
+            <Image src="/logo-lpd.png" alt="" width={32} height={32} className="size-8 rounded-lg" priority />
             La Parada Digital
           </Link>
           <nav className="flex items-center gap-4 text-sm">
@@ -37,6 +38,7 @@ export default async function Inicio() {
       <section className="bg-gradient-to-b from-emerald-900 to-emerald-800 text-white">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
           <div>
+            <Image src="/logo-la-parada.png" alt="Logo de La Parada Digital" width={128} height={128} className="mb-6 size-28 rounded-2xl shadow-lg ring-1 ring-white/20 md:size-32" priority />
             <p className="text-sm font-medium uppercase tracking-widest text-emerald-300">Municipalidad · Mercado mayorista</p>
             <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">Un mercado formal, trazable y seguro</h1>
             <p className="mt-4 max-w-lg text-emerald-100">
