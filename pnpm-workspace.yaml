@@ -3,3 +3,7 @@ pmOnFail: ignore
 minimumReleaseAgeExclude:
   - '@next/*'
   - next
+
+# Remediación SCA: fuerza versiones parcheadas de dependencias transitivas vulnerables
+overrides:
+  body-parser: '>=2.4.0'
