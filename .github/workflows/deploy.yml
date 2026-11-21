@@ -1,0 +1,49 @@
+# Etapa 5 · Deploy + Operate/Monitor
+# Vercel (integración Git) despliega automáticamente: `main` → producción, otras ramas → preview.
+# Cuando Vercel reporta un despliegue exitoso, este workflow ejecuta smoke tests sobre la URL pública:
+# disponibilidad, HTTPS, cabeceras de seguridad y protección de rutas privadas.
+name: Deploy - Verificación en Vercel
+
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: 5 · Deploy - Smoke tests en producción
+    if: github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production')
+    runs-on: ubuntu-latest
+    env:
+      URL: ${{ vars.PRODUCTION_URL }}
+    steps:
+      - name: Esperar a que el alias de producción responda
+        run: |
+          for i in $(seq 1 12); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$URL/") && [ "$code" = "200" ] && break
+            echo "Intento $i: HTTP $code"; sleep 10
+          done
+      - name: Páginas públicas disponibles (HTTP 200)
+        run: |
+          for p in / /login /consulta; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$URL$p")
+            echo "$p → $code"; test "$code" = "200"
+          done
+      - name: Rutas privadas protegidas (redirección a /login sin sesión)
+        run: |
+          loc=$(curl -s -o /dev/null -w '%{redirect_url}' "$URL/panel")
+          echo "/panel → $loc"; echo "$loc" | grep -q "/login"
+      - name: Cabeceras de seguridad y HTTPS
+        run: |
+          h=$(curl -sI "$URL/")
+          echo "$h"
+          for k in strict-transport-security content-security-policy x-frame-options x-content-type-options referrer-policy; do
+            echo "$h" | grep -qi "^$k:" || { echo "Falta cabecera $k"; exit 1; }
+          done
+          echo "$h" | grep -qi "^x-powered-by:" && { echo "Expone x-powered-by"; exit 1; } || true
+      - name: Resumen
+        run: |
+          echo "## Despliegue verificado" >> $GITHUB_STEP_SUMMARY
+          echo "Producción: $URL · HTTPS, cabeceras de seguridad y rutas protegidas OK" >> $GITHUB_STEP_SUMMARY

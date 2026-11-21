@@ -1,0 +1,13 @@
+# Monitoreo continuo de dependencias vulnerables (Operate/Monitor)
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule: { interval: weekly }
+    target-branch: test
+    open-pull-requests-limit: 5
+    labels: [dependencias, seguridad]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }
+    target-branch: test
