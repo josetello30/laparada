@@ -49,3 +49,8 @@ pnpm lint && pnpm typecheck && pnpm build
 ## Cuentas de demostración
 
 Contraseña: `Parada2026!` · `admin@laparada.pe`, `comerciante@laparada.pe`, `estibador@laparada.pe`, `fiscalizador@laparada.pe`, `transportista@laparada.pe`.
+
+## Producción
+
+- URL: https://laparada-coral.vercel.app
+- Cada merge a `main` despliega en Vercel y ejecuta los smoke tests (`.github/workflows/deploy.yml`).
