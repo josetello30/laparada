@@ -7,7 +7,7 @@ export function Tarjeta({ titulo, descripcion, children, className }: {
   titulo?: string; descripcion?: string; children: ReactNode; className?: string
 }) {
   return (
-    <section className={cn('rounded-xl border border-stone-200 bg-white p-5 shadow-sm', className)}>
+    <section className={cn('min-w-0 rounded-xl border border-stone-200 bg-white p-5 shadow-sm', className)}>
       {titulo && <h2 className="text-base font-semibold text-stone-900">{titulo}</h2>}
       {descripcion && <p className="mt-0.5 text-sm text-stone-500">{descripcion}</p>}
       <div className={cn(titulo && 'mt-4')}>{children}</div>
