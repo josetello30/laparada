@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { iniciarSesion, registrarse } from './acciones'
 import { Tarjeta, Campo, Entrada, Boton, Aviso, type Busqueda } from '@/components/ui-parada'
@@ -15,7 +16,10 @@ export default async function Login({ searchParams }: { searchParams: Busqueda }
   return (
     <main className="mx-auto grid min-h-screen max-w-5xl content-center gap-6 px-6 py-10 md:grid-cols-2">
       <div className="md:col-span-2">
-        <Link href="/" className="text-sm text-emerald-700 hover:underline">← La Parada Digital</Link>
+        <Link href="/" className="inline-flex items-center gap-3 text-sm text-emerald-700 hover:underline">
+          <Image src="/logo-la-parada.png" alt="Logo de La Parada Digital" width={64} height={64} className="size-16 rounded-xl" priority />
+          ← Volver al inicio
+        </Link>
         <Aviso ok={ok} error={error} />
       </div>
       <Tarjeta titulo="Iniciar sesión" descripcion="Accede con tu cuenta del mercado">

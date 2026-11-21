@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { LayoutDashboard, Store, Grid3x3, HardHat, Truck, Stethoscope, Users, LogOut } from 'lucide-react'
@@ -24,7 +25,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     <div className="flex min-h-screen">
       <aside className="hidden w-60 shrink-0 flex-col border-r border-stone-200 bg-white md:flex">
         <Link href="/" className="flex items-center gap-2 px-5 py-4 font-semibold">
-          <span className="grid size-8 place-items-center rounded-lg bg-emerald-700 text-sm text-white">LP</span>
+          <Image src="/logo-lpd.png" alt="" width={32} height={32} className="size-8 rounded-lg" priority />
           La Parada Digital
         </Link>
         <nav className="flex flex-1 flex-col gap-0.5 px-3">
@@ -44,7 +45,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
       </aside>
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between border-b border-stone-200 bg-white px-4 py-3 md:hidden">
-          <span className="font-semibold">La Parada Digital</span>
+          <span className="flex items-center gap-2 font-semibold"><Image src="/logo-lpd.png" alt="" width={28} height={28} className="size-7 rounded-md" /> La Parada Digital</span>
           <span className="text-xs capitalize text-stone-500">{u.rol}</span>
         </div>
         <nav className="flex gap-2 overflow-x-auto border-b border-stone-200 bg-white px-4 py-2 md:hidden">
