@@ -37,7 +37,7 @@ export default async function Dashboard() {
             <Kpi titulo="Comerciantes formalizados" valor={`${k.pctFormalizados}%`} detalle={`${k.formalizados} de ${k.totalComerciantes} registrados`} />
             <Kpi titulo="Ocupación de puestos" valor={`${k.pctOcupacion}%`} detalle={`${k.puestosOcupados} de ${k.totalPuestos} puestos`} tono="sky" />
             <Kpi titulo="Estibaje formal" valor={`S/ ${k.montoEstibaje.toFixed(2)}`} detalle={`${k.ordenesCompletadas} órdenes completadas · ${k.ordenesPendientes} pendientes`} tono="amber" />
-            <Kpi titulo="Incidencias abiertas" valor={k.incidenciasAbiertas} detalle={`${k.porPrioridad.critica} críticas`} tono="red" />
+            <Kpi titulo="Incidencias abiertas" valor={k.incidenciasAbiertas} detalle={`${k.porPrioridad.critica} ${k.porPrioridad.critica === 1 ? "crítica" : "críticas"}`} tono="red" />
           </div>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
             <Tarjeta titulo="Incidencias abiertas por prioridad">

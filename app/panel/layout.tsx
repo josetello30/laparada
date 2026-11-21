@@ -42,7 +42,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
           </form>
         </div>
       </aside>
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between border-b border-stone-200 bg-white px-4 py-3 md:hidden">
           <span className="font-semibold">La Parada Digital</span>
           <span className="text-xs capitalize text-stone-500">{u.rol}</span>
